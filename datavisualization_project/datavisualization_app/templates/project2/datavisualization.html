@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>Dashboard</title>
+  <title>Dashboard2</title>
   {% load static %}  
 
   <link rel="stylesheet" href="../static/css/index.css">
@@ -73,7 +73,7 @@
       </div>
     {% block content %}
 
-    {% include "dengue/datavisualization.html" %}
+    <!-- {% include "dengue/datavisualization.html" %} -->
 
      {% endblock content %} 
 
@@ -108,29 +108,6 @@
 <!-- AdminLTE App -->
 <script src="../static/dist/js/adminlte.min.js"></script>
 
-
-<script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: {{ labels|safe }},
-      datasets: [{
-        label: 'Dengue Cases',
-        data: {{ data|safe }},
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-</script>
 
 </body>
 </html>

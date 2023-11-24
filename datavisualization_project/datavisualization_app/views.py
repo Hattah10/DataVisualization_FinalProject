@@ -14,3 +14,7 @@ def index(request):
 
     return render(request, 'index.html', {'labels':labels, 'data':data})
 
+def project2(request):
+    return render(request, 'project2/datavisualization.html')
+
+
