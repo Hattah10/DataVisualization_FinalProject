@@ -6,6 +6,8 @@
     <link rel="icon" type="image/x-icon" href="../../static/dist/img/logo.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+  
     <title>LOGO</title>
 
     <style>
@@ -538,6 +540,28 @@
                             <div class="graph-content">
                                 <div class="graph-board">
                                     <canvas id="registrationChart"></canvas>
+                                    <button onclick="download()">Download</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="child">
+                            <div class="graph-content">
+                                <div class="graph-board">
+                                    <canvas id="linechart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <div class="activity-data ">
+                    <div class="parent">
+                        <div class="child">
+                            <div class="graph-content">
+                                <div class="graph-board">
+                                    <canvas id="piechart"></canvas>
                                     
                                 </div>
                             </div>
@@ -545,19 +569,61 @@
                         <div class="child">
                             <div class="graph-content">
                                 <div class="graph-board">
-                                    <canvas id="pieChart"></canvas>
+                                    <table id="myTable" class="display">
+                                        <thead>
+                                            <tr>
+                                                <th>Region</th>
+                                                <th>Location</th>
+                                                <th>Date</th>
+                                                <th>Cases</th>
+                                                <th>Death</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for entry in dengue_data %}
+                                            <tr>
+                                                <td>{{ entry.Region }}</td>
+                                                <td>{{ entry.Location }}</td>
+                                                <td>{{ entry.Date }}</td>
+                                                <td>{{ entry.Cases }}</td>
+                                                <td>{{ entry.Deaths }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- main ends here -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+     $(document).ready(function() {
+
+        new DataTable('#myTable', {
+            "ordering": false
+        });
+
+
+    });
+
+</script>
+
+<!-- <script>
+    // Initialize DataTable when the document is ready
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+</script> -->
 
     <script>
         let arrow = document.querySelectorAll(".arrow");
@@ -576,35 +642,30 @@
         });
 
         let ctx = document.querySelector("#registrationChart");
-        ctx.height = 150;
+        ctx.height = 200;
 
-        let regChart = new Chart(ctx, {
-            type: "bar",
+        let line = document.querySelector("#linechart");
+        line.height = 200;
+
+        let linechart = new Chart(line, {
+            type: "line",
             data: {
-                labels: ["Nov 6", "Nov 7", "Nov 8", "Nov 9", "Nov 10", "Nov 13", "Nov 14", "Nov 15", "Nov 16", "Nov 17",],
+                labels: {{ year_label|safe }},
                 datasets: [
                     {
-                        label: "Total",
+                        label: "Case",
                         borderColor: "orange",
                         borderWidth: "3",
                         backgroundColor: "rgba(235, 247, 245, 0.5)",
-                        data: [200, 556, 700, 300, 478, 143, 290, 680, 449, 360]
+                        data: {{ year_cases|safe }}
                     },
 
                     {
-                        label: "Deaths",
+                        label: "Death",
                         borderColor: "red",
                         borderWidth: "3",
                         backgroundColor: "rgba(235, 247, 245, 0.5)",
-                        data: [10, 15, 5, 0, 5, 2, 13, 90, 7, 4]
-                    },
-
-                    {
-                        label: "Cases",
-                        borderColor: "green",
-                        borderWidth: "3",
-                        backgroundColor: "rgba(235, 247, 245, 0.5)",
-                        data: [190, 541, 695, 300, 473, 141, 277, 590, 442, 356]
+                        data: {{ year_deaths|safe }}
                     }
                 ]
             },
@@ -618,25 +679,63 @@
             }
         });
 
-        {% comment %} const ctx = document.getElementById('myChart');
+    //  const ctx = document.getElementById('myChart');
         new Chart(ctx, {
             type: 'bar',
             data: {
             labels: {{ labels|safe }},
             datasets: [{
-                label: 'Dengue Cases',
-                data: {{ data|safe }},
-                borderWidth: 1
-            }]
+                        label: "total_cases",
+                        borderColor: "orange",
+                        borderWidth: "3",
+                        backgroundColor: "rgba(235, 247, 245, 0.5)",
+                        data:  {{ total_cases|safe }}
+                    },
+
+                    {
+                        label: "total_deaths",
+                        borderColor: "red",
+                        borderWidth: "3",
+                        backgroundColor: "rgba(235, 247, 245, 0.5)",
+                        data:  {{ total_deaths|safe }}
+                    }]
             },
             options: {
+            responsive: true,
             scales: {
                 y: {
                 beginAtZero: true
                 }
             }
             }
-        }); {% endcomment %}
+        });
+
+
+        let pie = document.querySelector("#piechart");
+        line.height = 200;
+
+        let piechart = new Chart(pie, {
+            type: "pie",
+            data: {
+                labels: {{ year_label|safe }},
+                datasets: [
+                    {
+                        label: "Case",
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                            ],
+                        hoverOffset: 4,
+                        data: {{ year_cases|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+            }
+        });
+
     </script>
 </body>
 </html>
