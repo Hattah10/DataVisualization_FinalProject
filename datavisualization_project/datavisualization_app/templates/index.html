@@ -7,8 +7,8 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
-  
-    <title>LOGO</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+    <title>Dengue</title>
 
     <style>
 
@@ -371,6 +371,35 @@
             height: 1em;
         }
 
+        .graph_title {
+                text-align: center;
+                /* border: 1px solid black; */
+                width: 100%;
+                margin-bottom: 15px;
+                text-transform: capitalize;
+                color: #454545;
+
+            }
+
+        .table_title {
+                /* border: 1px solid black; */
+                width: 100%;
+                margin-bottom: 15px;
+                text-transform: capitalize;
+                color: #393939;
+            }
+
+        td {
+            color: #BDBDC7;
+        }
+
+        div.dt-buttons>.dt-button, div.dt-buttons>div.dt-button-split .dt-button {
+            color: #8a0303;
+            background-color: #ffd700;
+            font-weight: 700;
+            text-transform: capitalize;
+        }
+
         {% comment %} report ends here {% endcomment %}
 
         @media screen and (max-width: 400px){
@@ -397,6 +426,8 @@
                 left: 78px;
                 width: calc(100% - 78px);
             }
+
+            
         }
 
     </style>
@@ -518,17 +549,17 @@
                     <div class="box box1">
                         <i class='bx bxs-bar-chart-alt-2'></i>
                         <span class="text">Total Report</span>
-                        <span class="number">50k</span>
+                        <span class="number">{{ total_cases }}</span>
                     </div>
                     <div class="box box2">
                         <i class='bx bx-first-aid'></i>
                         <span class="text">Cases</span>
-                        <span class="number">20k</span>
+                        <span class="number">{{ total_cases_2021 }}</span>
                     </div>
                     <div class="box box3">
                         <i class='bx bx-dizzy'></i>
                         <span class="text">Deaths</span>
-                        <span class="number">10k</span>
+                        <span class="number">{{ total_deaths_2021 }}</span>
                     </div>
                 </div>
             </div>
@@ -538,14 +569,23 @@
                     <div class="parent">
                         <div class="child">
                             <div class="graph-content">
+                                <div class="graph_title"><h3 id="monthly_title">Monthly Dengue Incidence Trends: [Year]</h3></div>
                                 <div class="graph-board">
-                                    <canvas id="registrationChart"></canvas>
-                                    <button onclick="download()">Download</button>
+                                    <!-- <canvas id="registrationChart"></canvas> -->
+                                    <!-- <button onclick="download()">Download</button> -->
+                                    <select id="chartSelector" onchange="updateChart()">
+                                        {% for year in year_label %}
+                                            <option value="{{ year }}">{{ year }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <canvas id="monthly_chart"></canvas>
+                                
                                 </div>
                             </div>
                         </div>
                         <div class="child">
                             <div class="graph-content">
+                                <div class="graph_title"><h3>Dengue Cases over year</h3></div>
                                 <div class="graph-board">
                                     <canvas id="linechart"></canvas>
                                 </div>
@@ -560,14 +600,16 @@
                     <div class="parent">
                         <div class="child">
                             <div class="graph-content">
+                                <div class="graph_title"><h3>Dengue Incidents and Fatalities by Year</h3></div>
                                 <div class="graph-board">
-                                    <canvas id="piechart"></canvas>
+                                    <canvas id="total_year_chart"></canvas>
                                     
                                 </div>
                             </div>
                         </div>
                         <div class="child">
                             <div class="graph-content">
+                                <div class="table_title"><h3>Dengue Cases over year</h3></div>
                                 <div class="graph-board">
                                     <table id="myTable" class="display">
                                         <thead>
@@ -597,33 +639,81 @@
                     </div>
                 </div>
             </div>
+            <!-- end of activity div -->
+
+            <div class="activity">
+                <div class="activity-data ">
+                    <div class="parent">
+                        <div class="child">
+                            <div class="graph-content">
+                                <div class="graph_title"><h3 id="byRegion_title">Dengue Cases over year</h3></div>
+                                <div class="graph-board">
+
+                                    <!-- <select id="yearSelector" onchange="updateYearRegionChart()">
+                                        {% for year in year_label %}
+                                            <option value="{{ year }}">{{ year }}</option>
+                                        {% endfor %}
+                                    </select> -->
+                                    <canvas id="year_regionchart"></canvas>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="child">
+                            <div class="graph-content">
+                                <div class="table_title"><h3 id="regionTitle">Dengue Cases in </h3></div>
+                                <div class="graph-board">
+                                    <select id="regionSelector" onchange="updateRegionChart()">
+                                        {% for region in region_label %}
+                                            <option value="{{ region }}">{{ region }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    
+                                    <canvas id="regioncharts" width="400" height="200"></canvas>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end of activity div -->
 
         </div>
     </div>
     <!-- main ends here -->
+
+    // <!-- datatable CDN -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>r
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    
 
+    // <!-- chart.JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+
 <script>
-     $(document).ready(function() {
-
-        new DataTable('#myTable', {
-            "ordering": false
-        });
-
-
-    });
+   $(document).ready(function() {
+    $('#myTable').DataTable( {
+        dom: 'Bfrtip',
+        "ordering": false,
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
 
 </script>
 
-<!-- <script>
-    // Initialize DataTable when the document is ready
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-    });
-</script> -->
+    
 
     <script>
         let arrow = document.querySelectorAll(".arrow");
@@ -641,8 +731,7 @@
         sidebar.classList.toggle("close");
         });
 
-        let ctx = document.querySelector("#registrationChart");
-        ctx.height = 200;
+
 
         let line = document.querySelector("#linechart");
         line.height = 200;
@@ -679,63 +768,279 @@
             }
         });
 
-    //  const ctx = document.getElementById('myChart');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-            labels: {{ labels|safe }},
-            datasets: [{
-                        label: "total_cases",
-                        borderColor: "orange",
-                        borderWidth: "3",
-                        backgroundColor: "rgba(235, 247, 245, 0.5)",
-                        data:  {{ total_cases|safe }}
-                    },
+        // let ctx = document.querySelector("#registrationChart");
+        // ctx.height = 200;   
+        
+        // new Chart(ctx, {
+        //     type: 'bar',
+        //     data: {
+        //     labels: {{ region_label|safe }},
+        //     datasets: [{
+        //                 label: "Dengue Cases",
+        //                 borderColor: "orange",
+        //                 borderWidth: "3",
+        //                 backgroundColor: "rgba(235, 247, 245, 0.5)",
+        //                 data:  {{ region_cases|safe }}
+        //             },
 
-                    {
-                        label: "total_deaths",
-                        borderColor: "red",
-                        borderWidth: "3",
-                        backgroundColor: "rgba(235, 247, 245, 0.5)",
-                        data:  {{ total_deaths|safe }}
-                    }]
-            },
-            options: {
-            responsive: true,
+        //             {
+        //                 label: "Death",
+        //                 borderColor: "red",
+        //                 borderWidth: "3",
+        //                 backgroundColor: "rgba(235, 247, 245, 0.5)",
+        //                 data:  {{ region_deaths|safe }}
+        //             }]
+        //     },
+        //     options: {
+        //     responsive: true,
+        //     scales: {
+        //         y: {
+        //         beginAtZero: true
+        //         }
+        //     }
+        //     }
+        // });
+
+
+        // let pie = document.querySelector("#piechart");
+        // line.height = 200;
+
+        // let piechart = new Chart(pie, {
+        //     type: "pie",
+        //     data: {
+        //         labels: {{ year_label|safe }},
+        //         datasets: [
+        //             {
+        //                 label: "Case",
+        //                 backgroundColor: [
+        //                     'rgb(255, 99, 132, 0.5)',
+        //                     'rgb(54, 162, 235)',
+        //                     'rgb(255, 205, 86)'
+        //                     ],
+        //                 hoverOffset: 4,
+        //                 data: {{ year_cases|safe }}
+        //             }
+        //         ]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //     }
+        // });
+
+
+
+        // let regioncharts = document.querySelector("#regionchart");
+        // regioncharts.height = 200;
+
+        // let regionVcharts =  new Chart(regioncharts, {
+        //     type: 'bar',
+        //     data: {
+        //         labels: {{ regionV_label|safe }},
+        //         datasets: [
+        //             {
+        //                 label: "Dengue Cases",
+        //                 borderColor: "orange",
+        //                 borderWidth: "3",
+        //                 backgroundColor: "rgba(235, 247, 245, 0.5)",
+        //                 data: {{ regionV_cases|safe }}
+        //             }
+        //         ]},
+        //     options: {
+        //         responsive: true,
+        //         scales: {
+        //             y: {
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
+
+
+
+    
+    var ctxRegion = document.getElementById('regioncharts').getContext('2d');
+            var regionChart;
+
+            function updateRegionChart() {
+                var selectedRegion = document.getElementById('regionSelector').value;
+
+                // Parse the JSON data
+                var allRegionsData = JSON.parse('{{ all_regions_data_json|safe }}');
+
+                // Use the selected region's data for the chart
+                var selectedRegionData = {
+                    label: allRegionsData[selectedRegion].label,
+                    cases: allRegionsData[selectedRegion].cases,
+                    deaths: allRegionsData[selectedRegion].deaths
+                };
+
+                 // Update the title with the selected region
+                 document.getElementById('regionTitle').innerText = 'Dengue Cases in ' + selectedRegion;
+
+                // Destroy existing chart (if any)
+                if (regionChart) {
+                    regionChart.destroy();
+                }
+
+                // Create a new chart with the selected region's data
+                regionChart = new Chart(ctxRegion, {
+                    type: 'bar',
+                    data: {
+                        labels: selectedRegionData.label,
+                        datasets: [
+                            {
+                                label: 'Cases',
+                                data: selectedRegionData.cases,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Deaths',
+                                data: selectedRegionData.deaths,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Call the updateRegionChart function on page load
+            updateRegionChart();
+
+
+
+// Monthly chart
+var ctxMonthly = document.getElementById('monthly_chart').getContext('2d');
+var monthlyChart;
+var monthlyCases = JSON.parse('{{ monthly_cases_json|safe }}');
+
+// Yearly region chart
+var ctxYearRegion = document.getElementById('year_regionchart').getContext('2d');
+var yearRegionChart;
+var regionYearlyCases = JSON.parse('{{ region_yearly_cases_json|safe }}');
+
+console.log(regionYearlyCases);
+
+// Total yearly chart
+var ctxTotalYear = document.getElementById('total_year_chart').getContext('2d');
+var totalYearChart;
+var totalYearlyCases = JSON.parse('{{ total_yearly_cases_json|safe }}');
+
+
+// Function to update both charts
+function updateChart() {
+    var selectedYear = document.getElementById('chartSelector').value;
+
+    document.getElementById('monthly_title').innerText = 'Monthly Dengue Incidence Trends: ' + selectedYear;
+    document.getElementById('byRegion_title').innerText = 'Dengue Cases in ' + selectedYear+ ' by Region ';
+
+    // Update monthly chart
+    var selectedYearDataMonthly = monthlyCases[selectedYear];
+    if (monthlyChart) {
+        monthlyChart.destroy();
+    }
+    monthlyChart = new Chart(ctxMonthly, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(selectedYearDataMonthly),
+            datasets: [
+                {
+                    label: 'Dengue Cases',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: Object.values(selectedYearDataMonthly),
+                },
+            ],
+        },
+        options: {
             scales: {
                 y: {
-                beginAtZero: true
-                }
-            }
-            }
-        });
-
-
-        let pie = document.querySelector("#piechart");
-        line.height = 200;
-
-        let piechart = new Chart(pie, {
-            type: "pie",
-            data: {
-                labels: {{ year_label|safe }},
-                datasets: [
-                    {
-                        label: "Case",
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
-                            ],
-                        hoverOffset: 4,
-                        data: {{ year_cases|safe }}
-                    }
-                ]
+                    beginAtZero: true,
+                },
             },
-            options: {
-                responsive: true,
-            }
-        });
+        },
+    });
+
+    // Update yearly region chart
+    var selectedYearDataRegion = regionYearlyCases[selectedYear];
+    if (yearRegionChart) {
+        yearRegionChart.destroy();
+    }
+    yearRegionChart = new Chart(ctxYearRegion, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(selectedYearDataRegion).slice(0, 5),
+            datasets: [
+                {
+                    label: 'Dengue Cases',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: Object.values(selectedYearDataRegion).slice(0, 5)
+                },
+            ],
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+
+    //update total cases yearly 
+
+    // Get data for the selected year
+    var selectedYearData = totalYearlyCases[selectedYear];
+
+    // Destroy existing chart (if any)
+    if (totalYearChart) {
+        totalYearChart.destroy();
+    }
+
+    // Create a new pie chart with the selected year's data
+    totalYearChart = new Chart(ctxTotalYear, {
+        type: 'pie',
+        data: {
+            labels: ['Cases', 'Deaths'],
+            datasets: [
+                {
+                    data: [selectedYearData.cases, selectedYearData.deaths],
+                    backgroundColor: ['rgb(255, 99, 132, 0.5)', 'rgb(54, 162, 235)'],
+                    borderColor: ['orange', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+        },
+        plugins: [ChartDataLabels]
+    });
+
+
+}
+
+// Call the updateChart function on page load
+updateChart();
 
     </script>
+
+<script>
+  
+</script>
 </body>
 </html>
