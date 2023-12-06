@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Model Data</title>
+</head>
+<body>
+    <h1>Education Model Data</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Education</th>
+            <th>Institution Type</th>
+            <th>IT Student</th>
+            <th>Location</th>
+            <th>Load-shedding</th>
+            <th>Financial Condition</th>
+            <th>Internet Type</th>
+            <th>Network Type</th>
+            <th>Class Duration</th>
+            <th>Self LMS</th>
+            <th>Device</th>
+            <th>Adaptivity Level</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in objects %}
+            <tr>
+                <td>{{ obj.gender }}</td>
+                <td>{{ obj.age }}</td>
+                <td>{{ obj.education }}</td>
+                <td>{{ obj.institution_type }}</td>
+                <td>{{ obj.it_student }}</td>
+                <td>{{ obj.location }}</td>
+                <td>{{ obj.load_shedding }}</td>
+                <td>{{ obj.financial_condition }}</td>
+                <td>{{ obj.internet_type }}</td>
+                <td>{{ obj.network_type }}</td>
+                <td>{{ obj.class_duration }}</td>
+                <td>{{ obj.self_lms }}</td>
+                <td>{{ obj.device }}</td>
+                <td>{{ obj.adaptivity_level }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
