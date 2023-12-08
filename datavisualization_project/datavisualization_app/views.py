@@ -171,11 +171,11 @@ def education_dataset(request):
 
 def education_model_view(request):
     # Query all objects from the "education_dataset" database
-    objects = EducationModel.objects.using('education_dataset').all()
+    objective = Education.objects.using('education_dataset').all()
 
     # Calculate the total entries for each gender
-    total_male = objects.filter(gender='Boy').count()
-    total_female = objects.filter(gender='Girl').count()
+    total_male = objective.filter(gender='Boy').count()
+    total_female = objective.filter(gender='Girl').count()
 
     # Pass the counts to the template
     context = {
@@ -183,5 +183,4 @@ def education_model_view(request):
         'total_female': total_female,
     }
     
-    context = {'objects': objects}
-    return render(request, 'proj3_dataset.html', context)
+    return render(request, 'project3/proj3_base.html', context)
