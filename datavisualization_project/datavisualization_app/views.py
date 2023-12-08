@@ -7,6 +7,7 @@ import json
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import requires_csrf_token
 
 from django.contrib.auth.models import User
 
@@ -27,7 +28,6 @@ from django.contrib import messages
 @login_required 
 def index(request):
     # get all data
-
     dengue_data = Dengue.objects.order_by('Date')
 
     # bar graph for region data
@@ -193,15 +193,15 @@ def education_model_view(request):
     
     return render(request, 'project3/proj3_base.html', context)
 
-def login(request):
+def loginuser(request):
     if request.method == 'POST':
-        email = request.POST["email"]
+        username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
             # Redirect to a success page.
-            return redirect('home')
+            return redirect('index')
         else:
             # Return an 'invalid login' error message.
             messages.success(request, ("There is an error with email and password."))
