@@ -1,9 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datavisualization_app.models import Dengue
 from datavisualization_app.models import Education
 from django.db.models import Count, Sum
 from django.db.models.functions import ExtractYear, ExtractMonth
 import json
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth.models import User
+
+from django.contrib import messages
 # from django.http import HttpResponse
 
 
@@ -17,7 +24,7 @@ import json
 #         labels.append(dataset.Location)
 #         data.append(dataset.Cases)
 #     return render(request, 'index.html', {'labels': labels, 'data': data})
-
+@login_required 
 def index(request):
     # get all data
 
@@ -180,8 +187,42 @@ def education_model_view(request):
     # Pass the counts to the template
     context = {
         'total_male': total_male,
-        'total_female': total_female,
+        'total_fezmale': total_female,
         'Education_data':Education_data
     }
     
     return render(request, 'project3/proj3_base.html', context)
+
+def login(request):
+    if request.method == 'POST':
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            # Redirect to a success page.
+            return redirect('home')
+        else:
+            # Return an 'invalid login' error message.
+            messages.success(request, ("There is an error with email and password."))
+            return redirect('login')
+        
+    else:
+    
+        return render(request, 'guest/login.html')
+
+def register(request):
+    if request.method == 'POST':
+       
+        name = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        new_user = User.objects.create_user(name, email, password)
+        new_user.save()
+        return redirect('index')
+    else:
+        return render(request, 'guest/register.html')
+    
+def logoutuser(request):
+    logout(request)
+    return redirect('login')
