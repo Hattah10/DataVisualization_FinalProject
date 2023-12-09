@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../static/dist/img/logo.png">
+  <title>GROUP SIX</title>
+
+  <!-- Google Font: Quicksand -->
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">  <!-- Icons -->
+  <link rel="stylesheet" href="../static/plugins/fontawesome-free/css/all.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="../static/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../static/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="../static/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../static/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../static/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../static/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="../static/plugins/summernote/summernote-bs4.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Quicksand:wght@300;400;500;600;700&display=swap');
+        *{
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body{ overflow-x: hidden; }
+
+        .content-wrapper{ background: #fffdd1; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #212529; }
+        ::-webkit-scrollbar-thumb {
+        background: #212529;
+        transition: all 0.3s ease;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #000; }
+
+        .nav-item{ padding-bottom: 2%;}
+        .breadcrumb-item a { color: black; text-transform: uppercase;}
+
+        .sidebar-toggle{
+            font-size: 26px;
+            color: #8a0303;
+        }
+        .info h1{
+            font-weight: bold;
+            font-size: 2em;
+            margin-bottom: 0;
+        }
+        .info p{
+            color: #212529;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .brand-text, 
+        .uinfo a,
+        .icon_idle p, .icon_idle i{ color: white; font-weight: bold; }
+
+        .icon{ font-weight: bold; }
+        .icon p, .icon i{ 
+            color: #9c0d0f;
+            font-weight: bold; 
+        }
+
+        .inner p{ font-weight: bold; }
+
+    </style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="../static/dist/img/logo.png" alt="AdminLTELogo" height="80" width="80">
+  </div>
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class='bx bx-category sidebar-toggle'></i></a>
+      </li>
+      <li class="info nav-item d-none d-sm-inline-block">
+        <h1>Dengue Report</h1>
+        <p>Shown below is the detailed report of dengue incidents from the year 2016 to 2021 in the Philippines</p>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside style="background: #000;" class="main-sidebar elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="mt-2 pb-3 d-flex brand-link">
+      <img src="../static/dist/img/logo.png" style="background: white; opacity: .8; font-size: 50px;" class="brand-image img-circle elevation-3 mr-3">
+      <span style="font-family: 'Bungee Spice', sans-serif;" class="brand-text">Group Six</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="../static/dist/img/user4-128x128.jpg" style="width: 40px; height: 40px;" class="brand-image img-circle elevation-2">
+        </div>
+        <div class="info uinfo">
+          <a href="#" class="d-block">Alexander Pierce</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+
+          <li class="nav-item mt-3 mb-2">
+            <a href="{% url 'dengue' %}" style="background: #ffc107;" class="icon nav-link active">
+              <i class=" nav-icon bx bx-plus-medical"></i>
+              <p> Dengue Report </p>
+            </a>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link icon_idle">
+              <i class=" nav-icon bx bxs-compass"></i>
+              <p> Project2 Report </p>
+            </a>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a href="{% url 'education' %}" class="nav-link icon_idle">
+              <i class="nav-icon bx bxs-book-bookmark"></i>
+              <p> Education Report </p>
+            </a>
+          </li>
+
+          <li style="color:white;" class="nav-header">OTHERS</li>
+          <li class="nav-item pb-3 mb-3">
+                <a href="#" class="nav-link icon_idle">
+                <i class="nav-icon fas fa-gear"></i>
+                <p>
+                    Settings
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Sign Out</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mt-3 mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li style=" color: black; text-transform: uppercase; font-weight: bold;" class="breadcrumb-item active">Dengue Report</li>
+                </ol>
+            </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+
+                <div class="col-lg-4 col-6">
+                    <!-- small card -->
+                    <div style="background: #ffc107;" class="small-box shadow">
+                        <div class="inner">
+                          <h3> {{ total_cases }} </h3>
+                          <p>Total Report</p>
+                        </div>
+                        <div class="icon"> <i class="bx bxs-bar-chart-alt-2"></i> </div>
+                    <a href="#" style="color: black;" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-lg-4 col-6">
+                    <!-- small card for Male -->
+                    <div style="background: #ffc107;" class="small-box shadow">
+                        <div class="inner">
+                          <h3>{{ total_cases_2021 }}</h3>
+                          <p>Cases</p>
+                        </div>
+                        <div class="icon">
+                          <i class='bx bx-first-aid'></i>
+                        </div>
+                    <a href="#" style="color: black;" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- /.col -->
+
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>
+
+                <div class="col-lg-4 col-6">
+                    <!-- small card for females -->
+                    <div style="background: #ffc107;" class="small-box shadow">
+                        <div class="inner">
+                          <h3>{{ total_deaths_2021 }}</h3>
+                          <p>Deaths</p>
+                        </div>
+                        <div class="icon">
+                          <i class='bx bxs-virus'></i>
+                        </div>
+                    <a href="#" style="color: black;" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <!-- Main row -->
+
+            <div class="row">
+              <div class="col-12">
+                <!-- interactive chart -->
+                <div class="card card-warning">
+                  <div class="card-header">
+                    <h5 style="font-weight:600;" class="card-title">
+                      Dengue Cases Report
+                    </h5>
+                  </div>
+
+                  <div class="card-body">
+                    <table id="myTable" class="display table table-hover" style="height: 300px;">
+                      <thead>
+                          <tr>
+                              <th>Region</th>
+                              <th>Location</th>
+                              <th>Date</th>
+                              <th>Cases</th>
+                              <th>Death</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for entry in dengue_data %}
+                          <tr>
+                              <td>{{ entry.Region }}</td>
+                              <td>{{ entry.Location }}</td>
+                              <td>{{ entry.Date }}</td>
+                              <td>{{ entry.Cases }}</td>
+                              <td>{{ entry.Deaths }}</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body-->
+                </div>
+                <!-- /.card -->
+    
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+              <div class="col-md-6">
+
+                <div class="card card-warning">
+                  <div class="card-header">
+                    <h5 style="font-weight:600;" class="card-title" id="monthly_title">
+                      Monthly Dengue Incidence Trends: [Year]
+                    </h5>
+
+                  </div>
+                  <div class="card-body">
+                    <div class="">
+                      <select id="chartSelector" onchange="updateChart()">
+                        {% for year in year_label %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+                      </select>
+                      <canvas id="monthly_chart" style="min-height: 248px; height: 248px; max-height: 248px; max-width: 100%;"></canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+    
+                <div class="card card-warning">
+                  <div class="card-header">
+                    <h5 style="font-weight:600"; class="card-title">
+                      Dengue Incidents and Fatalities by Year
+                    </h5>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="total_year_chart" style="min-height: 270px; height: 270px; max-height: 270px; max-width: 100%;"></canvas>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+    
+              </div>
+              <!-- /.col (LEFT) -->
+              <div class="col-md-6">
+                <!-- LINE CHART -->
+                <div class="card card-warning">
+                  <div class="card-header">
+                    <h5 style="font-weight:600;" class="card-title">Dengue Cases over year</h5>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="chart">
+                      <canvas id="linechart" style="min-height: 275px; height: 275px; max-height: 275px; max-width: 100%;"></canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+                <div class="card card-warning">
+                  <div class="card-header">
+                    <h5 style="font=weight:600;" class="card-title" id="regionTitle">Dengue Cases</h5>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="chart">
+
+                      <select id="regionSelector" onchange="updateRegionChart()">
+                        {% for region in region_label %}
+                            <option value="{{ region }}">{{ region }}</option>
+                        {% endfor %}
+                      </select>
+
+                      <canvas id="regioncharts" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+    
+              </div>
+              <!-- /.col (RIGHT) -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+              <div class="col-12">
+                <!-- interactive chart -->
+                <div class="card card-warning">
+                  <div class="card-header">
+                    <h5 style="font-weight:600;" class="card-title" id="byRegion_title">
+                      Dengue Cases Over Year
+                    </h5>
+                  </div>
+
+                  <div class="card-body">
+                    <div id="year_regionchart" style="height: 300px;"></div>
+                  </div>
+                  <!-- /.card-body-->
+                </div>
+                <!-- /.card -->
+    
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+
+
+            <!-- /.Main row -->
+            
+        </div>
+        <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer style="background: #000; color: white; text-transform: uppercase; font-size: 12px; text-align: center;" class="main-footer">
+        <strong> &copy; 2023-2024
+            <a style="color: white; text-transform: uppercase; font-size: 12px;" href="">Group Six</a>.
+            All rights reserved.
+        </strong>
+    </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="../static/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../static/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<!-- Bootstrap 4 -->
+<script src="../static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="../static/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="../static/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="../static/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="../static/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../static/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="../static/plugins/moment/moment.min.js"></script>
+<script src="../static/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../static/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="../static/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="../static/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../static/dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="../static/dist/js/pages/dashboard.js"></script>
+
+    // <!-- datatable CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    
+
+    // <!-- chart.JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+
+<script>
+   $(document).ready(function() {
+    $('#myTable').DataTable( {
+      dom: 'Bfrtip',
+      "ordering": false,
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+      ]
+  } );
+} );
+
+</script>
+
+    
+
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e)=>{
+        let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+        arrowParent.classList.toggle("showMenu");
+        });
+        }
+
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-category");
+        console.log(sidebarBtn);
+        sidebarBtn.addEventListener("click", ()=>{
+        sidebar.classList.toggle("close");
+        });
+
+
+
+        let line = document.querySelector("#linechart");
+        line.height = 200;
+
+        let linechart = new Chart(line, {
+            type: "line",
+            data: {
+                labels: {{ year_label|safe }},
+                datasets: [
+                    {
+                        label: "Case",
+                        borderColor: "orange",
+                        borderWidth: "3",
+                        backgroundColor: "rgba(235, 247, 245, 0.5)",
+                        data: {{ year_cases|safe }}
+                    },
+
+                    {
+                        label: "Death",
+                        borderColor: "red",
+                        borderWidth: "3",
+                        backgroundColor: "rgba(235, 247, 245, 0.5)",
+                        data: {{ year_deaths|safe }}
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  }
+            }
+        });
+
+        // let ctx = document.querySelector("#registrationChart");
+        // ctx.height = 200;   
+        
+        // new Chart(ctx, {
+        //     type: 'bar',
+        //     data: {
+        //     labels: {{ region_label|safe }},
+        //     datasets: [{
+        //                 label: "Dengue Cases",
+        //                 borderColor: "orange",
+        //                 borderWidth: "3",
+        //                 backgroundColor: "rgba(235, 247, 245, 0.5)",
+        //                 data:  {{ region_cases|safe }}
+        //             },
+
+        //             {
+        //                 label: "Death",
+        //                 borderColor: "red",
+        //                 borderWidth: "3",
+        //                 backgroundColor: "rgba(235, 247, 245, 0.5)",
+        //                 data:  {{ region_deaths|safe }}
+        //             }]
+        //     },
+        //     options: {
+        //     responsive: true,
+        //     scales: {
+        //         y: {
+        //         beginAtZero: true
+        //         }
+        //     }
+        //     }
+        // });
+
+
+        // let pie = document.querySelector("#piechart");
+        // line.height = 200;
+
+        // let piechart = new Chart(pie, {
+        //     type: "pie",
+        //     data: {
+        //         labels: {{ year_label|safe }},
+        //         datasets: [
+        //             {
+        //                 label: "Case",
+        //                 backgroundColor: [
+        //                     'rgb(255, 99, 132, 0.5)',
+        //                     'rgb(54, 162, 235)',
+        //                     'rgb(255, 205, 86)'
+        //                     ],
+        //                 hoverOffset: 4,
+        //                 data: {{ year_cases|safe }}
+        //             }
+        //         ]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //     }
+        // });
+
+
+
+        // let regioncharts = document.querySelector("#regionchart");
+        // regioncharts.height = 200;
+
+        // let regionVcharts =  new Chart(regioncharts, {
+        //     type: 'bar',
+        //     data: {
+        //         labels: {{ regionV_label|safe }},
+        //         datasets: [
+        //             {
+        //                 label: "Dengue Cases",
+        //                 borderColor: "orange",
+        //                 borderWidth: "3",
+        //                 backgroundColor: "rgba(235, 247, 245, 0.5)",
+        //                 data: {{ regionV_cases|safe }}
+        //             }
+        //         ]},
+        //     options: {
+        //         responsive: true,
+        //         scales: {
+        //             y: {
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
+
+
+
+    
+    var ctxRegion = document.getElementById('regioncharts').getContext('2d');
+            var regionChart;
+
+            function updateRegionChart() {
+                var selectedRegion = document.getElementById('regionSelector').value;
+
+                // Parse the JSON data
+                var allRegionsData = JSON.parse('{{ all_regions_data_json|safe }}');
+
+                // Use the selected region's data for the chart
+                var selectedRegionData = {
+                    label: allRegionsData[selectedRegion].label,
+                    cases: allRegionsData[selectedRegion].cases,
+                    deaths: allRegionsData[selectedRegion].deaths
+                };
+
+                 // Update the title with the selected region
+                 document.getElementById('regionTitle').innerText = 'Dengue Cases in ' + selectedRegion;
+
+                // Destroy existing chart (if any)
+                if (regionChart) {
+                    regionChart.destroy();
+                }
+
+                // Create a new chart with the selected region's data
+                regionChart = new Chart(ctxRegion, {
+                    type: 'bar',
+                    data: {
+                        labels: selectedRegionData.label,
+                        datasets: [
+                            {
+                                label: 'Cases',
+                                data: selectedRegionData.cases,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Deaths',
+                                data: selectedRegionData.deaths,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Call the updateRegionChart function on page load
+            updateRegionChart();
+
+
+
+// Monthly chart
+var ctxMonthly = document.getElementById('monthly_chart').getContext('2d');
+var monthlyChart;
+var monthlyCases = JSON.parse('{{ monthly_cases_json|safe }}');
+
+// Yearly region chart
+var ctxYearRegion = document.getElementById('year_regionchart').getContext('2d');
+var yearRegionChart;
+var regionYearlyCases = JSON.parse('{{ region_yearly_cases_json|safe }}');
+
+console.log(regionYearlyCases);
+
+// Total yearly chart
+var ctxTotalYear = document.getElementById('total_year_chart').getContext('2d');
+var totalYearChart;
+var totalYearlyCases = JSON.parse('{{ total_yearly_cases_json|safe }}');
+
+
+// Function to update both charts
+function updateChart() {
+    var selectedYear = document.getElementById('chartSelector').value;
+
+    document.getElementById('monthly_title').innerText = 'Monthly Dengue Incidence Trends: ' + selectedYear;
+    document.getElementById('byRegion_title').innerText = 'Dengue Cases in ' + selectedYear+ ' by Region ';
+
+    // Update monthly chart
+    var selectedYearDataMonthly = monthlyCases[selectedYear];
+    if (monthlyChart) {
+        monthlyChart.destroy();
+    }
+    monthlyChart = new Chart(ctxMonthly, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(selectedYearDataMonthly),
+            datasets: [
+                {
+                    label: 'Dengue Cases',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: Object.values(selectedYearDataMonthly),
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+
+    // Update yearly region chart
+    var selectedYearDataRegion = regionYearlyCases[selectedYear];
+    if (yearRegionChart) {
+        yearRegionChart.destroy();
+    }
+    yearRegionChart = new Chart(ctxYearRegion, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(selectedYearDataRegion).slice(0, 5),
+            datasets: [
+                {
+                    label: 'Dengue Cases',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    data: Object.values(selectedYearDataRegion).slice(0, 5)
+                },
+            ],
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        },
+    });
+
+    //update total cases yearly 
+
+    // Get data for the selected year
+    var selectedYearData = totalYearlyCases[selectedYear];
+
+    // Destroy existing chart (if any)
+    if (totalYearChart) {
+        totalYearChart.destroy();
+    }
+
+    // Create a new pie chart with the selected year's data
+    totalYearChart = new Chart(ctxTotalYear, {
+        type: 'pie',
+        data: {
+            labels: ['Cases', 'Deaths'],
+            datasets: [
+                {
+                    data: [selectedYearData.cases, selectedYearData.deaths],
+                    backgroundColor: ['rgb(255, 99, 132, 0.5)', 'rgb(54, 162, 235)'],
+                    borderColor: ['orange', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+        },
+        plugins: [ChartDataLabels]
+    });
+
+
+}
+
+// Call the updateChart function on page load
+updateChart();
+
+    </script>
+
+<script>
+  
+</script>
+
+
+</body>
+</html>

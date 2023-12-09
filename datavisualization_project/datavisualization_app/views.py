@@ -147,7 +147,7 @@ def index(request):
 
     monthly_cases_json = json.dumps(monthly_cases)
 
-    return render(request, 'index.html',
+    return render(request, 'dengue.html',
                    {'dengue_data': dengue_data,'region_label': region_label, 'region_cases': region_cases, 'region_deaths': region_deaths,
                     'year_label': year_label, 'year_cases': year_cases, 'year_deaths':year_deaths,
                       'total_cases': total_cases, 'total_deaths': total_deaths, 'total_cases_2021': total_cases_2021, 
@@ -156,18 +156,6 @@ def index(request):
                     'total_yearly_cases_json': total_yearly_cases_json,
                     })
 
-
-
-def education_base(request):
-    return render(request, "project3/proj3_base.html")
-
-
-def education_datavis(request):
-    return render(request, "project3/proj3_datavisualization.html")
-
-
-def education_dataset(request):
-    return render(request, "project3/proj3_dataset.html")
 
 def education_model_view(request):
     # Query all objects from the "education_dataset" database
@@ -181,7 +169,6 @@ def education_model_view(request):
     context = {
         'total_male': total_male,
         'total_female': total_female,
-        'Education_data':Education_data
+        'Education_data': Education_data
     }
-    
-    return render(request, 'project3/proj3_base.html', context)
+    return render(request, 'education.html', context)
