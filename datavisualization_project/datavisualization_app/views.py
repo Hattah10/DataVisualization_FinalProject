@@ -185,3 +185,4 @@ def education_model_view(request):
     }
     
     return render(request, 'project3/proj3_base.html', context)
+
