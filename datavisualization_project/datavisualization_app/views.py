@@ -157,24 +157,67 @@ def index(request):
                     })
 
 
-def education_model_view(request):
-    # Query all objects from the "education_dataset" database
-    Education_data = Education.objects.all().count()
 
+####################################################################
+
+
+
+def education_model_view(request):
+    
+    # Query all objects from the "education_dataset" database
+    education_data = Education.objects.all()
+    
     # Calculate the total entries for each gender
     total_male = Education.objects.filter(gender='Boy').count()
     total_female = Education.objects.filter(gender='Girl').count()
+    
+    ### Education and Gender Bar Graph####
+    # Calculate the count of each education level and gender
+    education_counts = Education.objects.values('education_level', 'gender').annotate(count=Count('id'))
+
+    # Prepare data for the chart
+    education_levels = set(data['education_level'] for data in education_counts)
+    genders = set(data['gender'] for data in education_counts)
+
+    chart_data = {education: {gender: 0 for gender in genders} for education in education_levels}
+    for data in education_counts:
+        education_level = data['education_level']
+        gender = data['gender']
+        count = data['count']
+        chart_data[education_level][gender] = count
+    
+    # Calculate the count of each age and gender
+    age_gender_counts = Education.objects.values('age', 'gender').annotate(count=Count('id'))
+
+    # Prepare data for the pie chart
+    chart_data = {f"{data['age']} - {data['gender']}": data['count'] for data in age_gender_counts}
+    
+    # Calculate the count of each education level and institution type
+    education_institution_counts = Education.objects.values('education_level', 'institution_type').annotate(count=Count('id'))
+
+    # Prepare data for the bar chart
+    chart_data = {f"{data['education_level']}": data['count'] for data in education_institution_counts}
+
+
+
+
 
     # Pass the counts to the template
     context = {
+        'education_data': education_data,
         'total_male': total_male,
         'total_female': total_female,
-        'Education_data': Education_data
+        'education_levels': list(education_levels),
+        'genders': list(genders),
+        'chart_data': json.dumps(chart_data),
     }
-<<<<<<< HEAD
-    
-    return render(request, 'project3/proj3_base.html', context)
 
-=======
+
+
+ 
+
+
+
     return render(request, 'education.html', context)
->>>>>>> 0ccd7427be039ef32725960de96c29320d843a2c
+
+

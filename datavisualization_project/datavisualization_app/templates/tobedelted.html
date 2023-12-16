@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="../../static/dist/img/logo.png">
+  <title>GROUP SIX</title>
+
+  <!-- Google Font: Quicksand -->
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">  <!-- Icons -->
+  <link rel="stylesheet" href="../../static/plugins/fontawesome-free/css/all.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="../../static/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../../static/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="../../static/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../static/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../static/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="../../static/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="../../static/plugins/summernote/summernote-bs4.min.css">
+  <!-- Add this in the head section of your education.html template -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Quicksand:wght@300;400;500;600;700&display=swap');
+        *{
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body{ overflow-x: hidden; }
+
+        .content-wrapper{ background: #fffdd1; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #212529; }
+        ::-webkit-scrollbar-thumb {
+        background: #212529;
+        transition: all 0.3s ease;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #000; }
+
+        .nav-item{ padding-bottom: 2%;}
+        .breadcrumb-item a { color: black; text-transform: uppercase;}
+
+        .sidebar-toggle{
+            font-size: 26px;
+            color: #8a0303;
+        }
+        .info h1{
+            font-weight: bold;
+            font-size: 2em;
+            margin-bottom: 0;
+        }
+        .info p{
+            color: #212529;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .brand-text, 
+        .uinfo a,
+        .icon_idle p, .icon_idle i{ color: white; font-weight: bold; }
+
+        .icon{ font-weight: bold; }
+        .icon p, .icon i{ 
+            color: #9c0d0f;
+            font-weight: bold; 
+        }
+
+        .inner p{ font-weight: bold; }
+
+    </style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+<!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="../../static/dist/img/logo.png" alt="AdminLTELogo" height="80" width="80">
+  </div> -->
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class='bx bx-category sidebar-toggle'></i></a>
+      </li>
+      <li class="info nav-item d-none d-sm-inline-block">
+        <h1>Online Education Report</h1>
+        <p>Shown below is the detailed report of student's adaptability level in an online setting</p>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside style="background: #000;" class="main-sidebar elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="mt-2 pb-3 d-flex brand-link">
+      <img src="../../static/dist/img/logo.png" style="background: white; opacity: .8; font-size: 50px;" class="brand-image img-circle elevation-3 mr-3">
+      <span style="font-family: 'Bungee Spice', sans-serif;" class="brand-text">Group Six</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="../../static/dist/img/user4-128x128.jpg" style="width: 40px; height: 40px;" class="brand-image img-circle elevation-2">
+        </div>
+        <div class="info uinfo">
+          <a href="#" class="d-block">Alexander Pierce</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+
+               <li class="nav-item mt-1 mb-2">
+                <a href="{% url 'dengue' %}" class="nav-link icon_idle">
+                  <i class=" nav-icon bx bx-plus-medical"></i>
+                  <p> Dengue Report </p>
+                </a>
+              </li>
+    
+              <li class="nav-item mb-2">
+                <a href="#" class="nav-link icon_idle">
+                  <i class=" nav-icon bx bxs-compass"></i>
+                  <p> Project2 Report </p>
+                </a>
+              </li>
+    
+              <li class="nav-item mb-2">
+                <a href="{% url 'education' %}" style="background: #ffc107;" class="icon nav-link active">
+                  <i class="nav-icon bx bxs-book-bookmark"></i>
+                  <p> Education Report </p>
+                </a>
+              </li>
+
+          <li style="color:white;" class="nav-header">OTHERS</li>
+          <li class="nav-item pb-3 mb-3">
+                <a href="#" class="nav-link icon_idle">
+                <i class="nav-icon fas fa-gear"></i>
+                <p>
+                    Settings
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Sign Out</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mt-3 mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li style=" color: black; text-transform: uppercase; font-weight: bold;" class="breadcrumb-item active">Education Report</li>
+                </ol>
+            </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-4 col-6">
+                    <!-- small card -->
+                    <div style="background: #ffc107;" class="small-box shadow">
+                        <div class="inner">
+                          <h3> {{ Education_data }} </h3>
+                          <p>Total Entries</p>
+                        </div>
+                        <div class="icon"> <i class="bx bxs-bar-chart-alt-2"></i> </div>
+                    <a href="#" style="color: black;" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-lg-4 col-6">
+                    <!-- small card for Male -->
+                    <div style="background: #ffc107;" class="small-box shadow">
+                        <div class="inner">
+                          <h3>{{ total_male }}</h3>
+                          <p>Total Male Entries</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-mars"></i>
+                        </div>
+                    <a href="#" style="color: black;" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- /.col -->
+
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>
+
+                <div class="col-lg-4 col-6">
+                    <!-- small card for females -->
+                    <div style="background: #ffc107;" class="small-box shadow">
+                        <div class="inner">
+                          <h3>{{ total_female }}</h3>
+                          <p>Total Female Entries</p>
+                        </div>
+                        <div class="icon">
+                            <i class='bx bx-female-sign' ></i>
+                        </div>
+                    <a href="#" style="color: black;" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <!-- Main row -->
+            <div class="row">
+              <div class="col-12">
+                <!-- interactive chart -->
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h5 style="font-weight:600;" class="card-title">
+                            Education Data Report
+                        </h5>
+                    </div>
+            
+                    <div class="card-body">
+                        <table id="myTable" class="display table table-hover" style="height: 400px;">
+                            <thead>
+                                <tr>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Education</th>
+                                    <th>Institution Type</th>
+                                    <th>IT Student</th>
+                                    <th>Location</th>
+                                    <th>Load Shedding</th>
+                                    <th>Financial Condition</th>
+                                    <th>Internet Type</th>
+                                    <th>Network Type</th>
+                                    <th>Class Duration</th>
+                                    <th>Self LMS</th>
+                                    <th>Device</th>
+                                    <th>Adaptivity Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entry in education_data %}
+                                <tr>
+                                    <td>{{ entry.gender }}</td>
+                                    <td>{{ entry.age }}</td>
+                                    <td>{{ entry.education }}</td>
+                                    <td>{{ entry.institution_type }}</td>
+                                    <td>{{ entry.it_student }}</td>
+                                    <td>{{ entry.location }}</td>
+                                    <td>{{ entry.load_shedding }}</td>
+                                    <td>{{ entry.financial_condition }}</td>
+                                    <td>{{ entry.internet_type }}</td>
+                                    <td>{{ entry.network_type }}</td>
+                                    <td>{{ entry.class_duration }}</td>
+                                    <td>{{ entry.self_lms }}</td>
+                                    <td>{{ entry.device }}</td>
+                                    <td>{{ entry.adaptivity_level }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body-->
+                </div>
+                <!-- /.card -->
+              </div>
+            </div>
+                <div class="col-7 col-md-5">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body">
+                          pie chart: X: Age & Y: Gender
+                          OKS NA
+                        </div>
+                        <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+                <div class="col-md-7">
+                    <div class="card ">
+                        <div class="card-body">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                          Excepteur sint occaecat cupidatat non proident, 
+                          sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </div>
+                        <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 col-md-4">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body">
+                          Bar chart: X: Education Lvl & Y: Gender
+                          OKS NA
+                        </div>
+                        <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body">
+                          Bar chart: X: Education Lvl & Y: Institution Type
+                        </div>
+                        <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body">
+                          Bar chart: X: Network type & Y: Internet Type
+                        </div>
+                        <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+                <div class="col-12">
+                  <div class="card card-primary card-outline">
+                      <div class="card-body">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                          Excepteur sint occaecat cupidatat non proident, 
+                          sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      </div>
+                      <!-- /.card-body-->
+                  </div>
+                  <!-- /.card -->
+                </div>
+
+            <div class="row">
+                <div class="col-7 col-md-5">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body">
+                          Area graph: X: Location & Y: Load shedding
+                        </div>
+                        <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+                <div class="col-md-7">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                          Excepteur sint occaecat cupidatat non proident, 
+                          sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </div>
+                        <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+                          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                          Excepteur sint occaecat cupidatat non proident, 
+                          sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        </div>
+                        <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+                <div class="col-7 col-md-5">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body">
+                          Histogram: X: financial condition & Y: gender
+                        </div>
+                        <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        </div>
+                          <div class="card-body">
+                            Dual-Axis chart: X: adaptability lvl & Y1: Age and Y2: Network Type
+                          </div>
+                          <!-- /.card-body-->
+                      </div>
+                      <!-- /.card -->
+                </div>
+                <div class="col-md-12">
+                  <div class="card card-primary card-outline">
+                      </div>
+                        <div class="card-body">
+                          Dual-Axis chart: X: adaptability lvl & Y1: Network Type and Y2: financial
+                        </div>
+                        <!-- /.card-body-->
+                    </div>
+                    <!-- /.card -->
+              </div>
+            </div>
+            <!-- /.Main row -->
+            
+        </div>
+        <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer style="background: #000; color: white; text-transform: uppercase; font-size: 12px; text-align: center;" class="main-footer mt-1">
+    <strong> &copy; 2023-2024 <a href="" style="color: white; text-transform: uppercase; font-size: 12px;">Group Six</a>.</strong>
+    All rights reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="../../static/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../../static/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<!-- Bootstrap 4 -->
+<script src="../../static/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="../../static/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="../../static/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="../../static/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="../../static/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../../static/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="../../static/plugins/moment/moment.min.js"></script>
+<script src="../../static/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../../static/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="../../static/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="../../static/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../static/dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="../../static/dist/js/pages/dashboard.js"></script>
+
+// <!-- datatable CDN -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+
+// <!-- chart.JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
+<script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+  arrow[i].addEventListener("click", (e)=>{
+  let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+  arrowParent.classList.toggle("showMenu");
+  });
+  }
+
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-category");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+  sidebar.classList.toggle("close");
+  });
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
+</body>
+</html>
