@@ -27,7 +27,7 @@ from calendar import month_name
 #         labels.append(dataset.Location)
 #         data.append(dataset.Cases)
 #     return render(request, 'index.html', {'labels': labels, 'data': data})
-@login_required 
+# @login_required 
 def index(request):
     # get all data
     dengue_data = Dengue.objects.order_by('Date')
@@ -166,53 +166,152 @@ def index(request):
                     })
 
 
+####################################################################
+
+
 def education_model_view(request):
     # Query all objects from the "education_dataset" database
-    Education_data = Education.objects.all().count()
+    education_data = Education.objects.all()
 
-    # Calculate the total entries for each gender
+    # Calculate the total entries
+    education_report = Education.objects.all().count()
     total_male = Education.objects.filter(gender='Boy').count()
     total_female = Education.objects.filter(gender='Girl').count()
 
+    # starting point of graph
+    # total adaptability of students
+    adapt_low = Education.objects.filter(adaptivity_level='Low').count()
+    adapt_mod = Education.objects.filter(adaptivity_level='Moderate').count()
+    adapt_high = Education.objects.filter(adaptivity_level='High').count()
+
+    adapt_low = int(adapt_low)
+    adapt_mod = int(adapt_mod)
+    adapt_high = int(adapt_high)
+
+    adapt_bins = ['Low', 'Moderate', 'High']
+    adapt_lists = [adapt_low, adapt_mod, adapt_high]
+
+    # Internet Type | Students
+    network_2g = Education.objects.filter(network_type='2G').count()
+    network_3g = Education.objects.filter(network_type='3G').count()
+    network_4g = Education.objects.filter(network_type='4G').count()
+    
+    network_2g = int(network_2g)
+    network_3g = int(network_3g)
+    network_4g = int(network_4g)
+
+    network_label = ['2G', '3G', '4G']
+    network_lists = [network_2g, network_3g, network_4g]
+    
+    # Condition of students
+    rich = Education.objects.filter(financial_condition='Rich').count()
+    mid = Education.objects.filter(financial_condition='Mid').count()
+    poor = Education.objects.filter(financial_condition='Poor').count()
+    
+    rich = int(rich)
+    mid = int(mid)
+    poor = int(poor)
+    
+    cond_label = ['Rich', 'Mid', 'Poor']
+    cond_lists = [rich, mid, poor]
+    
+    
+    # count of each education level
+    educ_univ = Education.objects.filter(education_level='University').count()
+    educ_col = Education.objects.filter(education_level='College').count()
+    educ_sch = Education.objects.filter(education_level='School').count()
+    
+    educ_univ = int(educ_univ)
+    educ_col = int(educ_col)
+    educ_sch = int(educ_sch)
+    
+    educ_label = ['University', 'College', 'School']
+    educ_lists = [educ_univ, educ_col, educ_sch]
+    
+    # learning management system
+    NO = Education.objects.filter(self_lms='No').count()
+    YES = Education.objects.filter(self_lms='Yes').count()
+    
+    NO = int(NO)
+    YES = int(YES)
+    
+    lms_label = ['No', 'Yes']
+    lms_lists = [NO, YES]
+
+    # educ_data = Education.objects.values('adaptivity_level').annotate(
+    #     total_level=Sum('education_level'),
+    #     total_lms=Sum('self_lms')
+    # ).order_by('adaptivity_level')
+
+    # educ_label = []
+    # educ_level = []
+    # educ_lms = []
+
+    # for educ_data in educ_data:
+    #     educ_label.append(educ_data['adaptivity_level'])
+    #     educ_level.append(educ_data['total_level'])
+    #     educ_lms.append(educ_data['total_lms'])
+    
+    
+    
+    # education_counts = Education.objects.values('education_level', 'self_lms').annotate(count=Count('id'))
+
+    # # Prepare data for the chart
+    # education_levels = set(data['education_level'] for data in education_counts)
+    # lms = set(data['self_lms'] for data in education_counts)
+
+    # chart_data = {education: {self_lms: 0 for self_lms in lms} for education in education_levels}
+    # # for data in education_counts:
+    #     education_level = data['education_level']
+    #     self_lms = data['self_lms']
+    #     count = data['count']
+    #     chart_data[education_level][self_lms] = count
+    
+    
+    # # Calculate the count of each age and gender
+    # age_gender_counts = Education.objects.values('age', 'gender').annotate(count=Count('id'))
+
+    # # Prepare data for the pie chart
+    # chart_data = {f"{data['age']} - {data['gender']}": data['count'] for data in age_gender_counts}
+    
+    # # Calculate the count of each education level and institution type
+    # education_institution_counts = Education.objects.values('education_level', 'institution_type').annotate(count=Count('id'))
+
+    # # Prepare data for the bar chart
+    # chart_data = {f"{data['education_level']}": data['count'] for data in education_institution_counts}
+
     # Pass the counts to the template
     context = {
+        'education_report': education_report,
+        'education_data': education_data,
         'total_male': total_male,
-        'total_fezmale': total_female,
-        'Education_data':Education_data
+        'total_female': total_female,
+        # 'education_levels': list(education_levels),
+        # 'lms': list(lms),
+        # 'chart_data': json.dumps(chart_data),
+        
+        'network_label': network_label,
+        'network_lists': network_lists,
+        'adapt_bins': adapt_bins,
+        'adapt_lists': adapt_lists,
+        'cond_label': cond_label,
+        'cond_lists': cond_lists,
+        # 'educ_label': educ_label,
+        # 'educ_level': educ_level,
+        # 'educ_lms': educ_lms,
+        'educ_label': educ_label,
+        'educ_lists': educ_lists,
+        'lms_label': lms_label,
+        'lms_lists': lms_lists,
+        
     }
-    
+
+
+
+ 
+
+
+
     return render(request, 'education.html', context)
 
-def loginuser(request):
-    if request.method == 'POST':
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            # Redirect to a success page.
-            return redirect('dengue')
-        else:
-            # Return an 'invalid login' error message.
-            messages.success(request, ("There is an error with email and password."))
-            return redirect('login')
-        
-    else:
-    
-        return render(request, 'guest/login.html')
 
-def register(request):
-    if request.method == 'POST':
-       
-        name = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        new_user = User.objects.create_user(name, email, password)
-        new_user.save()
-        return redirect('dengue')
-    else:
-        return render(request, 'guest/register.html')
-    
-def logoutuser(request):
-    logout(request)
-    return redirect('login')
