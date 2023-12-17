@@ -12,6 +12,8 @@ from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.models import User
 
 from django.contrib import messages
+from calendar import month_name
+
 # from django.http import HttpResponse
 
 
@@ -87,10 +89,10 @@ def index(request):
  # Get dengue cases and deaths for each location within a specific region
     all_regions_data = {}
     for region_name in region_label:
-        region_data = Dengue.objects.filter(Region=region_name).values('Location').annotate(
+        region_data = Dengue.objects.filter(Region=region_name).values('Location', 'Date').annotate(
             total_cases=Sum('Cases'),
             total_deaths=Sum('Deaths')
-        ).order_by('Location')
+        ).order_by('Location', 'Date')
 
         locations = []
         cases = []
@@ -107,8 +109,6 @@ def index(request):
             'deaths': deaths,
         }
     all_regions_data_json = json.dumps(all_regions_data)
-
-    # Get cases by region for each year
 
 
     region_yearly_data = Dengue.objects.annotate(
@@ -137,7 +137,7 @@ def index(request):
         year=ExtractYear('Date'),
         month=ExtractMonth('Date')
         ).values('year', 'month').annotate(
-        total_cases=Sum('Cases'),
+                 total_cases=Sum('Cases'),
                 total_deaths=Sum('Deaths')
             ).order_by('month')
 
@@ -149,32 +149,22 @@ def index(request):
 
         if year not in monthly_cases:
             monthly_cases[year] = {}
-
-        monthly_cases[year][month] = cases
+         # Convert numeric month to month name
+        month_name_str = month_name[month]
+        monthly_cases[year][month_name_str] = cases
 
     monthly_cases_json = json.dumps(monthly_cases)
 
-    return render(request, 'index.html',
+
+    return render(request, 'dengue.html',
                    {'dengue_data': dengue_data,'region_label': region_label, 'region_cases': region_cases, 'region_deaths': region_deaths,
                     'year_label': year_label, 'year_cases': year_cases, 'year_deaths':year_deaths,
-                      'total_cases': total_cases, 'total_deaths': total_deaths, 'total_cases_2021': total_cases_2021, 
+                      'total_cases': total_cases, 'total_deaths':total_deaths, 'total_deaths': total_deaths, 'total_cases_2021': total_cases_2021, 
                     'total_deaths_2021': total_deaths_2021, 'all_regions_data': all_regions_data, 'region_yearly_cases_json': region_yearly_cases_json,
-                      'all_regions_data_json': all_regions_data_json, 'monthly_cases_json': monthly_cases_json,
+                       'monthly_cases_json': monthly_cases_json,
                     'total_yearly_cases_json': total_yearly_cases_json,
                     })
 
-
-
-def education_base(request):
-    return render(request, "project3/proj3_base.html")
-
-
-def education_datavis(request):
-    return render(request, "project3/proj3_datavisualization.html")
-
-
-def education_dataset(request):
-    return render(request, "project3/proj3_dataset.html")
 
 def education_model_view(request):
     # Query all objects from the "education_dataset" database
@@ -191,7 +181,7 @@ def education_model_view(request):
         'Education_data':Education_data
     }
     
-    return render(request, 'project3/proj3_base.html', context)
+    return render(request, 'education.html', context)
 
 def loginuser(request):
     if request.method == 'POST':
@@ -201,7 +191,7 @@ def loginuser(request):
         if user is not None:
             login(request, user)
             # Redirect to a success page.
-            return redirect('index')
+            return redirect('dengue')
         else:
             # Return an 'invalid login' error message.
             messages.success(request, ("There is an error with email and password."))
@@ -219,7 +209,7 @@ def register(request):
         password = request.POST.get('password')
         new_user = User.objects.create_user(name, email, password)
         new_user.save()
-        return redirect('index')
+        return redirect('dengue')
     else:
         return render(request, 'guest/register.html')
     

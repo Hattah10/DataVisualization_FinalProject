@@ -1,48 +1,103 @@
-        @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Quicksand:wght@300;400;500;600;700&display=swap');
-        *{
-            font-family: 'Quicksand', sans-serif;
-        }
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Quicksand:wght@300;400;500;600;700&display=swap');
+*{
+    font-family: 'Quicksand', sans-serif;
+}
 
-        body{ overflow-x: hidden; }
+body{ overflow-x: hidden; }
 
-        .content-wrapper{ background: #fffdd1; }
+.content-wrapper{ background: #fffdd1; }
 
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #212529; }
-        ::-webkit-scrollbar-thumb {
-        background: #212529;
-        transition: all 0.3s ease;
-        }
-        ::-webkit-scrollbar-thumb:hover { background: #000; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #212529; }
+::-webkit-scrollbar-thumb {
+background: #212529;
+transition: all 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover { background: #000; }
 
-        .nav-item{ padding-bottom: 2%;}
-        .breadcrumb-item a { color: black; text-transform: uppercase;}
+.nav-item{ padding-bottom: 2%;}
+.breadcrumb-item a { color: black; text-transform: uppercase;}
 
-        .sidebar-toggle{
-            font-size: 26px;
-            color: #8a0303;
-        }
-        .info h1{
-            font-weight: bold;
-            font-size: 2em;
-            margin-bottom: 0;
-        }
-        .info p{
-            color: #212529;
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin: 0;
-        }
+.sidebar-toggle{
+    font-size: 26px;
+    color: #8a0303;
+}
+.info h1{
+    font-weight: bold;
+    font-size: 2em;
+    margin-bottom: 0;
+}
+.info p{
+    color: #212529;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin: 0;
+}
 
-        .brand-text, 
-        .uinfo a,
-        .icon_idle p, .icon_idle i{ color: white; font-weight: bold; }
+.brand-text, 
+.uinfo a,
+.icon_idle p, .icon_idle i{ color: white; font-weight: bold; }
 
-        .icon{ font-weight: bold; }
-        .icon p, .icon i{ 
-            color: #9c0d0f;
-            font-weight: bold; 
-        }
+.icon{ font-weight: bold; }
+.icon p, .icon i{ 
+    color: #9c0d0f;
+    font-weight: bold; 
+}
 
-        .inner p{ font-weight: bold; }
+.inner p{ font-weight: bold; }
 
+.col .stat_box p{
+  margin: 0;
+}
+
+.selection {
+  display: flex;
+  margin-bottom: 10px;
+
+}
+#chartSelector, #regionSelector {
+border: none;
+appearance: none;
+background: #ffc107;
+padding: 2px 40px 2px 15px;
+height: 40px;
+position: relative;
+}
+
+.icon-select {
+width: 30px;
+height: 100%;
+position: absolute;
+right: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+background-color: #9c0d0f;
+z-index: 1;
+}
+
+.icon-select i {
+font-size: 20px;
+}
+
+/* .info-graph > div{
+gap: 50px;
+} */
+@media only screen and (max-width: 768px) {
+
+
+.top-region {
+  margin-top: 60px;
+}
+}
+
+@media only screen and (max-width: 426px) {
+.selection {
+  flex-direction: column;
+  position: relative;
+}
+
+.top-region {
+  margin-top: 60px;
+}
+}
