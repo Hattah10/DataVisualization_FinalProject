@@ -81,6 +81,30 @@
 
         .inner p{ font-weight: bold; }
 
+        .infog{
+          font-size: 12px;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        .desc{
+          padding: 5px;
+          font-size: 12px;
+          text-align: justify;
+          font-weight: bold;
+        }
+
+        .con{
+          margin-bottom: 2rem;
+          width: 1000px;
+          margin-left: 5%;
+          margin-right: 5%;
+          border:none; 
+          background: rgba(255, 255, 255, 0.5);
+          box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+          border-radius: 10px;
+        }
+
     </style>
 </head>
 
@@ -123,7 +147,7 @@
           <img src="../static/dist/img/user4-128x128.jpg" style="width: 40px; height: 40px;" class="brand-image img-circle elevation-2">
         </div>
         <div class="info uinfo">
-          <a href="#" class="d-block">Keme Kapoy</a>
+          <a href="#" class="d-block">Escala & Esclares</a>
         </div>
       </div>
 
@@ -144,7 +168,7 @@
           <li class="nav-item mb-2">
             <a href="#" class="nav-link icon_idle">
               <i class=" nav-icon bx bxs-compass"></i>
-              <p> Project2 Report </p>
+              <p> Earthquake Report </p>
             </a>
           </li>
 
@@ -210,8 +234,8 @@
                     <!-- small card -->
                     <div style="background: #ffc107;" class="small-box shadow">
                         <div class="inner">
-                          <h3> {{ education_data }} </h3>
-                          <p>Total Entries</p>
+                          <h3> {{ education_report }} </h3>
+                          <p>Total Students</p>
                         </div>
                         <div class="icon"> <i class="bx bxs-bar-chart-alt-2"></i> </div>
                     <a href="#" style="color: black;" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
@@ -223,10 +247,10 @@
                     <div style="background: #ffc107;" class="small-box shadow">
                         <div class="inner">
                           <h3>{{ total_male }}</h3>
-                          <p>Total Male Entries</p>
+                          <p>Male Students</p>
                         </div>
                         <div class="icon">
-                          <i class='bx bx-first-aid'></i>
+                          <i class="fas fa-mars"></i>
                         </div>
                     <a href="#" style="color: black;" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -241,10 +265,10 @@
                     <div style="background: #ffc107;" class="small-box shadow">
                         <div class="inner">
                           <h3>{{ total_female }}</h3>
-                          <p>Total Female Entries</p>
+                          <p>Female Students</p>
                         </div>
                         <div class="icon">
-                          <i class='bx bxs-virus'></i>
+                          <i class='bx bx-female-sign' ></i>
                         </div>
                     <a href="#" style="color: black;" class="small-box-footer"> More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -255,7 +279,7 @@
 
             <!-- Main row -->
 
-            <div class="row">
+            {% comment %} <div class="row">
               <div class="col-12">
                 <!-- interactive chart -->
                 <div class="card card-warning">
@@ -313,10 +337,85 @@
     
               </div>
               <!-- /.col -->
-            </div>
+            </div> {% endcomment %}
             <!-- /.row -->
 
             <div class="row">
+              <div class="col-md-8">
+                <div  class="card-body">
+                  <canvas id="networkChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                  <br><p class="infog">Fig.1. The Network Strength of each Student's Internet</p>
+                </div>
+              </div>
+
+              <div class="col-6 col-md-4">
+                <div  class="card-body">
+                  <canvas id="LMSChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                  <br><p class="infog">Fig.2. Learning Management System</p>
+                </div>
+              </div>
+
+              <div class="col-md-10">
+                <div  class="con card-body">
+                  <p class="desc">
+                    Based on the results you've seen above when speaking of internet speed and the necessary materials Bangladesh students need,
+                    it is safe to conclude that most students are having a hard time during their online class sessions. Though it can be seen that
+                    64.3% of students have a good connection to start their online classes, we can't deny the fact that there are also 35.7% of students
+                    who are struggling with their internet connection. Not to mention the lack of essential tools or resources - according to the SELF 
+                    LMS result.
+                  </p>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
+            <div class="row">
+              <div class="col-6 col-md-4">
+                <div class="card-body">
+                  <canvas id="condChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                  <br><p class="infog">Fig.3. Financial Condition Comparison</p>
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="card-body">
+                  <canvas id="educChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                  <br><p class="infog">Fig.4. Different Level of Students</p>
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="card-body">
+                  <canvas id="adaptChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
+                  <br><p class="infog">Fig.5. The Adaptability Lvl Results of Bangladesh Students</p>
+                </div>
+              </div>
+
+              <div class="col-md-10">
+                <div class="con card-body">
+                  <p class="desc">
+                    During the implementation of online classes worldwide, in Bangladesh, most students who adapt to the new face of 
+                    learning are grade schoolers [1 to 15], next are university students [21 to 30], and lastly are college students [16 to 25]. 
+                    According to the results given, though making money was hard during the pandemic, the students were still able to adapt to 
+                    the online class session; there are 51.9% of students - half of the respondents who were able to adapt to the rapid shipment 
+                    of education, 39.8% who are having difficulty with the situation, and there are only 8.3% who were able to adapt the online learning
+                    comfortably.
+
+                    <br><br>
+
+                    Through this dataset, institutions can have valuable insights into how students can adapt to the new educational approach. 
+                    As online education becomes increasingly prevalent, especially in the context of global events like the COVID-19 pandemic, 
+                    understanding students' adaptability is crucial. The dataset can help educators and educational institutions understand how students 
+                    adapt to online learning environments. This knowledge can be used to improve the design and delivery of online courses, ensuring they 
+                    meet students' needs and preferences. By analyzing the adaptability levels, the dataset can reveal challenges that many students commonly
+                    face in online education. This information is valuable for addressing issues such as technological barriers, lack of resources, or
+                    difficulties in engaging with online content. All in all, understanding students' adaptability levels allows educators to tailor 
+                    their teaching strategies to better suit the online learning environment. This may involve adopting different instructional methods,
+                      providing more interactive content, or incorporating technology in ways that enhance the learning experience.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {% comment %} <div class="row">
               <div class="col-md-6">
 
                 <div class="card card-warning">
@@ -325,9 +424,7 @@
                   </div>
                 
                   <div class="card-body">
-                    <div class="">
-                      <canvas id="educationGenderBarChart" style="min-height: 248px; height: 248px; max-height: 248px; max-width: 100%;"></canvas>
-                    </div>
+                    <canvas id="networkChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
                   </div>
                   <!-- /.card-body -->
                 </div>
@@ -366,12 +463,12 @@
 
                 <div class="card card-warning">
                   <div class="card-header">
-                    <h5 style="font-weight:600;" class="card-title">Bar chart: X: Network type & Y: Internet Type</h5>
+                    <h5 style="font-weight:600;" class="card-title">Bar chart: X: Network type & Y: network Type</h5>
                   </div>
                 
                   <div class="card-body">
                     <div class="chart">
-                      <canvas id="networkInternetBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                      <canvas id="networknetworkBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
                   </div>
                   <!-- /.card-body -->
@@ -394,7 +491,7 @@
               </div>
               <!-- /.card -->
 
-            </div>
+            </div> {% endcomment %}
             <!-- /.row -->
 
 
@@ -454,21 +551,20 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="../static/dist/js/pages/dashboard.js"></script>
 
-    // <!-- datatable CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+  <!-- datatable CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     
-
-    // <!-- chart.JS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+  <!-- chart.JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
 
 <script>
@@ -481,34 +577,205 @@
       ]
   } );
 } );
-
 </script>
 
 <script>
-// Use the chart_data passed from views.py to populate the bar chart
+  {% comment %} Adaptability Lvl of Bangladesh Students {% endcomment %}
+  var ctx = document.getElementById('adaptChart').getContext('2d');
+      var adaptChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: [{% for adapt in adapt_bins %} '{{ adapt }}', {% endfor %}],
+              datasets: [{
+                  label: 'Bangladesh Students',
+                  data: [{% for num in adapt_lists %} '{{ num }}', {% endfor %}],
+                  backgroundColor: [
+                    'rgba(144,0,0, 0.3)', 
+                    'rgba(18,68,41, 0.3)', 
+                    'rgba(229,184,11, 0.3)'
+                  ],
+                  borderColor: [
+                    'rgba(144,0,0, 1)', 
+                    'rgba(18,68,41, 1)', 
+                    'rgba(229,184,11, 1)'
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+              display: true,
+              position: 'bottom',
+            },
+          }
+      });
+
+  {% comment %} network Type of Students {% endcomment %}
+  var networkctx = document.getElementById('networkChart').getContext('2d');
+  var networkChart = new Chart(networkctx, {
+    type: 'bar',
+    data: {
+      labels: [{% for intern in network_label %} '{{ intern }}', {% endfor %}],
+      datasets: [{
+          label: "Network Strength",
+          data: [{% for num1 in network_lists %} '{{ num1 }}', {% endfor %}],
+          backgroundColor: [
+                    'rgba(144,0,0, 0.3)', 
+                    'rgba(18,68,41, 0.3)', 
+                    'rgba(229,184,11, 0.3)'
+                  ],
+                  borderColor: [
+                    'rgba(144,0,0, 1)', 
+                    'rgba(18,68,41, 1)', 
+                    'rgba(229,184,11, 1)'
+                  ],
+                  borderWidth: 1
+        }]
+  },
+  options: {
+    indexAxis: 'y',
+    // Elements options apply to all of the options unless overridden in a dataset
+    // In this case, we are setting the border of each horizontal bar to be 2px wide
+    elements: {
+      bar: {
+        borderWidth: 2,
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+  });
+
+  {% comment %} Financial of Students {% endcomment %}
+  var Condctx = document.getElementById('condChart').getContext('2d');
+  var condChart = new Chart(Condctx, {
+    type: 'doughnut',
+    data: {
+      labels: [{% for finance in cond_label %} '{{ finance }}', {% endfor %}],
+      datasets: [{
+          label: "Status",
+          data: [{% for num2 in cond_lists %} '{{ num2 }}', {% endfor %}],
+          backgroundColor: [
+                    'rgba(144,0,0, 0.3)', 
+                    'rgba(18,68,41, 0.3)', 
+                    'rgba(229,184,11, 0.3)'
+                  ],
+                  borderColor: [
+                    'rgba(144,0,0, 1)', 
+                    'rgba(18,68,41, 1)', 
+                    'rgba(229,184,11, 1)'
+                  ],
+                  borderWidth: 1
+        }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    legend: {
+      display: true,
+      position: 'bottom',
+    },
+  }
+  });
+
+{% comment %} EDucation Level of Students {% endcomment %}
+var Educctx = document.getElementById('educChart').getContext('2d');
+var educChart = new Chart(Educctx, {
+  type: 'bar',
+  data: {
+    labels: [{% for educ in educ_label %} '{{ educ }}', {% endfor %}],
+    datasets: [{
+        label: "Bangladesh Students",
+        data: [{% for num2 in educ_lists %} '{{ num2 }}', {% endfor %}],
+        backgroundColor: [
+                  'rgba(144,0,0, 0.3)', 
+                  'rgba(18,68,41, 0.3)', 
+                  'rgba(229,184,11, 0.3)'
+                ],
+                borderColor: [
+                  'rgba(144,0,0, 1)', 
+                  'rgba(18,68,41, 1)', 
+                  'rgba(229,184,11, 1)'
+                ],
+                borderWidth: 1
+      }]
+},
+options: {
+  scales: {
+    y: {
+      beginAtZero: true
+    }
+  }
+}
+});
+  
+{% comment %} IT Students {% endcomment %}
+var LMSctx = document.getElementById('LMSChart').getContext('2d');
+var LMSChart = new Chart(LMSctx, {
+  type: 'bar',
+  data: {
+    labels: [{% for LMS in lms_label %} '{{ LMS }}', {% endfor %}],
+    datasets: [{
+        label: "LMS",
+        data: [{% for num3 in lms_lists %} '{{ num3 }}', {% endfor %}],
+        backgroundColor: [
+                  'rgba(144,0,0, 0.3)', 
+                  'rgba(18,68,41, 0.3)', 
+                  'rgba(229,184,11, 0.3)'
+                ],
+                borderColor: [
+                  'rgba(144,0,0, 1)', 
+                  'rgba(18,68,41, 1)', 
+                  'rgba(229,184,11, 1)'
+                ],
+                borderWidth: 1
+      }]
+},
+options: {
+  scales: {
+    y: {
+      beginAtZero: true
+    }
+  }
+}
+});
+
+
+{% comment %}  Use the chart_data passed from views.py to populate the bar chart
 var chartData = {{ chart_data|safe }};
-
-// Get the canvas element
-var ctx = document.getElementById('educationGenderBarChart').getContext('2d');
-
-// Extract labels and data from chart_data
+ Extract labels and data from chart_data
 var labels = Object.keys(chartData);
 var data = Object.values(chartData);
 
-// Create the bar chart
-var barChart = new Chart(ctx, {
+ Get the canvas element
+var EducGenctx = document.getElementById('internetChart').getContext('2d');
+ Create the bar chart
+var internetChart = new Chart(EducGenctx, {
   type: 'bar',
   data: {
     labels: labels,
     datasets: [{
       label: 'Gender',
       data: data,
-      backgroundColor: '#FF6384', // You can customize the color
+      backgroundColor: '#FF6384',  You can customize the color
     }]
   },
   options: {
     responsive: true,
     maintainAspectRatio: false,
+    indexAxis: 'y',
+     Elements options apply to all of the options unless overridden in a dataset
+     In this case, we are setting the border of each horizontal bar to be 2px wide
+    elements: {
+      bar: {
+        borderWidth: 2,
+      }
+    },
     scales: {
       x: {
         title: {
@@ -531,10 +798,10 @@ var barChart = new Chart(ctx, {
 
 
   // Use the chart_data passed from views.py to populate the pie chart
-  var chartData = {{ chart_data|safe }};
+  {% comment %} var chartData = {{ chart_data|safe }}; {% endcomment %}
 
   // Get the canvas element
-  var ctx = document.getElementById('ageGenderPieChart').getContext('2d');
+  {% comment %} var ctx = document.getElementById('ageGenderPieChart').getContext('2d');
 
   // Extract labels and data from chart_data
   var labels = Object.keys(chartData);
@@ -651,7 +918,7 @@ var barChart = new Chart(ctx, {
       },
     }
   }
-});
+}); {% endcomment %}
 
 
 
